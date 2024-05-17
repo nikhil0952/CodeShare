@@ -36,9 +36,6 @@ const Editor = ({socketRef, roomId, onCodeChange})=>{
                 })
             };
             init();
-            return () => {
-                socketRef.current.off(ACTIONS.CODE_CHANGE);
-            }
         },
         []
     );
@@ -52,6 +49,9 @@ const Editor = ({socketRef, roomId, onCodeChange})=>{
                     }
                 })
             }
+            return () => {
+                socketRef.current.off(ACTIONS.CODE_CHANGE);
+            };
         },
         [socketRef.current]
     )
