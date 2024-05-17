@@ -1,11 +1,18 @@
 const express = require('express');
 const {Server} = require('socket.io');
 const ACTIONS = require('./src/Actions.js')
+const path = require('path');
 
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
-app.use(express.static('build'));
+
+app.use(express.static('build'));// deploy purpose
+// to handle server calls directing to index.htl for deploy purpose
+app.use((req,res,next)=>{
+    res.sendFile(path.join(__dirname,'build','index.html'));
+})
+
 const io = new Server(server);
 
 const userSocketMap = {};
